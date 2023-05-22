@@ -1,0 +1,15 @@
+{
+    "url":{
+        "DEV" : "https://dev/insurance.qantas.com/home-insurance/quote/",
+        "SIT1" : "https://sit1/insurance.qantas.com/home-insurance/quote/",
+        "SIT5" : "https://sit5/insurance.qantas.com/home-insurance/quote/",
+        "UAT" : "https://uat/insurance.qantas.com/home-insurance/quote/",
+        "PROD": "https://insurance.qantas.com/home-insurance/quote/"
+
+    },
+    "getQuote":{
+        "Name" : "Anu",
+        "pinCode" : "2009",
+        "address" : "313 harris street pyrmont, 2009 nsw"
+    }
+}
