@@ -14,8 +14,8 @@ export const config: Options.Testrunner = {
             transpileOnly: true
         }
     },
-    
-    
+
+
     //
     // ==================
     // Specify Test Files
@@ -57,15 +57,15 @@ export const config: Options.Testrunner = {
     //
     maxInstances: 10,
     capabilities: [
-        
+
         // capabilities for local browser web tests
         {
-        maxInstances: 5,
-        browserName: 'chrome', // or "firefox", "microsoftedge", "chrome"
-        acceptInsecureCerts: true
+            maxInstances: 5,
+            browserName: 'chrome', // or "firefox", "microsoftedge", "chrome"
+            acceptInsecureCerts: true
         }
 
-        
+
     ],
     //
     // ===================
@@ -115,7 +115,7 @@ export const config: Options.Testrunner = {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
     services: ['selenium-standalone'],
-    
+
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks
@@ -136,13 +136,21 @@ export const config: Options.Testrunner = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec',['allure', 
-    {   
-        outputDir: 'allure-results',
-        disableWebdriverStepsReporting: true,
-    }]],
+    reporters: ['spec',
+       // ['allure',
+        //    {
+       //         outputDir: 'allure-results',
+        //        disableWebdriverStepsReporting: true,
+      //      }],
+        ['junit', {
+            outputDir: 'junit-reports',
+            outputFileFormat: function (options) { // optional
+                return `results-${options.cid}.${options.capabilities}.xml`
+            }
+        }]
+    ],
 
-    
+
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
@@ -244,7 +252,7 @@ export const config: Options.Testrunner = {
      * @param {boolean} result.passed    true if test has passed, otherwise false
      * @param {object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+    afterTest: async function (test, context, { error, result, duration, passed, retries }) {
         if (!passed) {
             await browser.takeScreenshot();
         }
